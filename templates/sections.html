@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/site.css"/>
+</head>
+<body>
+    <table>
+        {% for category in categories %}
+        <tr class="category" >
+            <th>
+                {{ category.number_of_category }}.
+            </th>
+            <th>
+                {{ category.name_of_category }}
+            </th>
+            <th>
+                {{ category.count_of_problems }}
+            </th>
+            <th>
+                <a href="/{{name}}-ege/{{category.number_of_type}}"> Перейти </a>
+            </th>
+        </tr>
+        {% for section in category.sections %}
+        <tr class="section">
+            <th>
+
+            </th>
+            <th>
+                {{ section.name_of_section }}
+            </th>
+            <th>
+                {{ section.count_of_problems }}
+            </th>
+            <th>
+                <a href="/{{name}}-ege/{{section.number_of_type}}/{{section.number_of_section}}"> Перейти </a>
+            </th>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+    </table>
+</body>
+</html>
