@@ -6,36 +6,36 @@
     <link rel="stylesheet" type="text/css" href="/static/site.css"/>
 </head>
 <body>
-    <table>
+    <table class="wrapper">
         {% for category in categories %}
         <tr class="category" >
-            <th>
+            <td>
                 {{ category.number_of_category }}.
-            </th>
-            <th>
+            </td>
+            <td>
                 {{ category.name_of_category }}
-            </th>
-            <th>
+            </td>
+            <td>
                 {{ category.count_of_problems }}
-            </th>
-            <th>
+            </td>
+            <td>
                 <a href="/{{name}}-ege/{{category.number_of_type}}"> Перейти </a>
-            </th>
+            </td>
         </tr>
         {% for section in category.sections %}
         <tr class="section">
-            <th>
+            <td>
 
-            </th>
-            <th>
+            </td>
+            <td>
                 {{ section.name_of_section }}
-            </th>
-            <th>
+            </td>
+            <td>
                 {{ section.count_of_problems }}
-            </th>
-            <th>
+            </td>
+            <td>
                 <a href="/{{name}}-ege/{{section.number_of_type}}/{{section.number_of_section}}"> Перейти </a>
-            </th>
+            </td>
         </tr>
         {% endfor %}
         {% endfor %}

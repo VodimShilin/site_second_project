@@ -3,17 +3,24 @@ import my_parser
 
 app = Flask(__name__)
 subjects = {'math': []}
-HEAD_FOR_PAGE = '<!DOCTYPE html> \
-<html lang="en"> \
-<head> \
-    <meta charset="UTF-8"> \
-    <title>Title</title> \
-</head> \
-<body> \
-<table>'
-END_FOR_PAGE = '</table> \
-</body> \
-</html>'
+
+
+def head_for_page(return_number: int() = 0):
+    text = f'<!DOCTYPE html> <html lang="en"> <head> \
+    <meta charset="UTF-8"> <title>Title</title> \
+    <link rel="stylesheet" type="text/css" href="/static/site.css"/> \
+    </head> <body> <div class="wrapper"> <table> <tr> \
+    <th><a href="/math-ege">На главную</a></th>'
+    if return_number:
+        text += f'<th><a href="/math-ege/{return_number}">' \
+                f'К заданию</a></th>'
+    text += '<tr> </table> <table class="table">'
+    return text
+
+    
+def end_for_page():
+    return '</table> </div> </body> </html>'
+
 
 def make_subjects(name: str):
     if not subjects[name]:
@@ -39,17 +46,17 @@ def get_task_number_page(name: str, number: int):
     if not subjects[name][number - 1].number_of_category:
         subjects[name][number - 1] = my_parser.get_items_from_site(
             name, number)
-    section_number_page = HEAD_FOR_PAGE
+    section_number_page = head_for_page()
     for section in subjects[name][number - 1].sections:
         if not section.problems:
             section = my_parser.open_new_window(
                 section, section.source_of_problems)
     for section in subjects[name][number - 1].sections:
         for problem in section.problems:
-            section_number_page += f'<tr><th>Задание ' \
-                               f'{problem.number_of_type}</th></tr> \n\
-                               <tr><th>{problem.text}</th></tr>\n'
-    section_number_page += END_FOR_PAGE
+            section_number_page += f'<tr class="problems"><td>Задание ' \
+                               f'{problem.number_of_type}</td></tr> \n\
+                               <tr><td>{problem.text}</td></tr>\n'
+    section_number_page += end_for_page()
     return section_number_page
     """return render_template('problem_number.html',
                            category=subjects[name][number - 1])"""
@@ -66,12 +73,13 @@ def get_section_number_page(name: str, number: int, section: int):
                 subjects[name][number - 1].sections[section - 1],
                 subjects[name][number - 1].sections[
                     section - 1].source_of_problems)
-    section_number_page = HEAD_FOR_PAGE
+    section_number_page = head_for_page(number)
+    return_number = number
     for problem in subjects[name][number - 1].sections[section - 1].problems:
-        section_number_page += f'<tr><th>Задание ' \
-                               f'{problem.number_of_type}</th></tr> \n\
-                               <tr><th>{problem.text}</th></tr>\n'
-    section_number_page += END_FOR_PAGE
+        section_number_page += f'<tr class="problems"><td>Задание ' \
+                               f'{problem.number_of_type}</td></tr> \n\
+                               <tr><td>{problem.text}</td></tr>\n'
+    section_number_page += end_for_page()
     return section_number_page
     """return render_template('section_number.html', section=subjects[name][
         number - 1].sections[section - 1])"""
