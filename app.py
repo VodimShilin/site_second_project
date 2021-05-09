@@ -2,7 +2,7 @@ from flask import Flask, render_template
 import my_parser
 
 app = Flask(__name__)
-subjects = {'math': []}
+subjects = {'math': [], 'inf': [], 'chem': []}
 
 
 def head_for_page(return_number: int() = 0):
