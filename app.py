@@ -1,6 +1,9 @@
 from flask import Flask, render_template
 import my_parser
+import sys
 
+
+args = sys.argv[1:]
 app = Flask(__name__)
 subjects = {'math': [], 'inf': [], 'chem': []}
 
@@ -24,7 +27,7 @@ def end_for_page():
 
 def make_subjects(name: str):
     if not subjects[name]:
-        subjects[name] = my_parser.get_items_from_site(name)
+        subjects[name] = my_parser.get_items_from_site(args, name)
 
 
 @app.route('/')
@@ -45,12 +48,12 @@ def get_task_number_page(name: str, number: int):
     number = int(number)
     if not subjects[name][number - 1].number_of_category:
         subjects[name][number - 1] = my_parser.get_items_from_site(
-            name, number)
+            args, name, number)
     section_number_page = head_for_page()
     for section in subjects[name][number - 1].sections:
         if not section.problems:
             section = my_parser.open_new_window(
-                section, section.source_of_problems)
+                section, section.source_of_problems, args)
     for section in subjects[name][number - 1].sections:
         for problem in section.problems:
             section_number_page += f'<tr class="problems"><td>Задание ' \
@@ -72,7 +75,7 @@ def get_section_number_page(name: str, number: int, section: int):
             my_parser.open_new_window(
                 subjects[name][number - 1].sections[section - 1],
                 subjects[name][number - 1].sections[
-                    section - 1].source_of_problems)
+                    section - 1].source_of_problems, args)
     section_number_page = head_for_page(number)
     return_number = number
     for problem in subjects[name][number - 1].sections[section - 1].problems:

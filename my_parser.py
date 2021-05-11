@@ -168,9 +168,8 @@ def make_text_nice(x, html_text):
     return html_text
 
 
-def open_new_window(current_section, source):
-    with webdriver.Chrome(
-            '/home/vadim/chromedriver/chromedriver') as dr:
+def open_new_window(current_section, source, args):
+    with getattr(webdriver, args[0])(f"{args[1]}") as dr:
         dr.get(source)
 
         for i in range(200):
@@ -221,9 +220,12 @@ def open_new_window(current_section, source):
         return current_section
 
 
-def get_items_from_site(section: str = 'math', indexes: int = 0):
+def get_items_from_site(args, section: str = 'math', indexes: int = 0):
     url = f'https://{section}-ege.sdamgia.ru/prob_catalog'
-    driver = webdriver.Chrome('/home/vadim/chromedriver/chromedriver')
+
+    # exec(f'driver = webdriver.{args[0]}("{args[1]}")')
+    # driver = webdriver .getattribute(args[0])(args[1])
+    driver = getattr(webdriver, args[0])(f"{args[1]}")
     driver.get(url)
     categories = driver.find_element_by_class_name(
         "wrapper").find_element_by_class_name(
