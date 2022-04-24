@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/site.css"/>
+</head>
+<body>
+    <table>
+        {% for category in categories %}
+        <tr class="category" >
+            <td>
+                {{ category.number_of_category }}.
+            </td>
+            <td>
+                {{ category.name_of_category }}
+            </td>
+            <td>
+                {{ category.count_of_problems }}
+            </td>
+            <td>
+                <a href="/{{name}}-ege/{{category.number_of_type}}"> Перейти </a>
+            </td>
+        </tr>
+        {% for section in category.sections %}
+        <tr class="section">
+            <td>
+
+            </td>
+            <td>
+                {{ section.name_of_section }}
+            </td>
+            <td>
+                {{ section.count_of_problems }}
+            </td>
+            <td>
+                <a href="/{{name}}-ege/{{section.number_of_type}}/{{section.number_of_section}}"> Перейти </a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+    </table>
+    <a href="/">К выбору предметов</a>
+</body>
+</html>

@@ -1,0 +1,34 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: blanchedalmond;
+    color: #60625B;
+}
+
+.category {
+    background-color: cornsilk;
+}
+
+.section:nth-child(odd) {
+    background-color: aliceblue;
+}
+
+.section:nth-child(even) {
+    background-color: lightsteelblue;
+}
+
+.problems:nth-child(even) td {
+    border-bottom: 3px solid dimgrey;
+}
+
+.problems:nth-child(odd) td {
+    border-bottom: 1px solid dimgrey;
+}
+
+.wrapper {
+    margin-right: 60px;
+    margin-left: 60px;
+}
+
+td {
+    padding: 5px;
+}
